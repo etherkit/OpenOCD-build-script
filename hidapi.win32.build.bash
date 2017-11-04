@@ -21,9 +21,11 @@ if [[ x$USE_LOCAL_LIBUSB == xyes ]];
 then
 	../hidapi/configure --prefix=$PREFIX \
 		libusb_CFLAGS="-I${PREFIX}/include/libusb-1.0" \
-		libusb_LIBS="-L${PREFIX}/lib -lusb-1.0"
+		libusb_LIBS="-L${PREFIX}/lib -lusb-1.0" \
+        --build=i686-pc-linux-gnu --host=i686-w64-mingw32
 else
-	../hidapi/configure --prefix=$PREFIX
+	../hidapi/configure --prefix=$PREFIX \
+        --build=i686-pc-linux-gnu --host=i686-w64-mingw32
 fi
 
 if [ -z "$MAKE_JOBS" ]; then

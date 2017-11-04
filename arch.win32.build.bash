@@ -1,19 +1,17 @@
 #!/bin/bash -ex
 
 export CFLAGS="-m32 -mno-ms-bitfields"
-export CXXFLAGS=-m32
+export CXXFLAGS="-m32"
 export HIDAPI_LDFLAGS=-lhidapi
+export LDFLAGS="-static"
 
 ./clean.bash
 rm -rf objdir
 
-./libusb.build.bash
-./libusb-compat-0.1.build.bash
-USE_LOCAL_LIBUSB=yes ./hidapi.build.bash
-USE_LOCAL_LIBUSB=yes ./openocd.build.bash
-
-cp /cygdrive/c/cygwin/bin/cygwin1.dll objdir/bin
-cp /cygdrive/c/cygwin/bin/cyggcc_s-1.dll objdir/bin
+./libusb.win32.build.bash
+./libusb-compat-0.1.win32.build.bash
+USE_LOCAL_LIBUSB=yes ./hidapi.win32.build.bash
+USE_LOCAL_LIBUSB=yes ./openocd.win32.build.bash
 
 if [[ -f objdir/bin/openocd.exe ]] ;
 then

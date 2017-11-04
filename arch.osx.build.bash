@@ -2,19 +2,20 @@
 
 export CFLAGS="-m64"
 export CXXFLAGS="-m64"
-export HIDAPI_LDFLAGS="-lhidapi-libusb"
-export LDFLAGS="-static"
+#export HIDAPI_LDFLAGS="-lhidapi-libusb"
+export HIDAPI_LDFLAGS="-lhidapi"
+#export LDFLAGS="-L../lib"
 
 ./clean.bash
 rm -rf objdir
 
-./libusb.linux64.build.bash
-USE_LOCAL_LIBUSB=yes ./hidapi.linux64.build.bash
-./openocd.linux64.build.bash
+./libusb.osx.build.bash
+USE_LOCAL_LIBUSB=yes ./hidapi.osx.build.bash
+./openocd.osx.build.bash
 
 if [[ -f objdir/bin/openocd ]] ;
 then
-	strip --strip-all objdir/bin/openocd
+	x86_64-apple-darwin15-strip objdir/bin/openocd
 	mv objdir/bin/openocd objdir/bin/openocd.bin
 	cp launchers/openocd.linux objdir/bin/openocd
 	chmod +x objdir/bin/openocd

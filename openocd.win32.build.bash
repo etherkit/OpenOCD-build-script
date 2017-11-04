@@ -26,12 +26,16 @@ then
 		HIDAPI_CFLAGS=-I${PREFIX}/include/hidapi \
 		LIBUSB0_LIBS="-L${PREFIX}/lib -lusb" \
 		LIBUSB1_LIBS="-L${PREFIX}/lib -lusb-1.0" \
-		HIDAPI_LIBS="-L${PREFIX}/lib ${HIDAPI_LDFLAGS}"
+		HIDAPI_LIBS="-L${PREFIX}/lib ${HIDAPI_LDFLAGS}" \
+        --disable-shared \
+        --build=i686-pc-linux-gnu --host=i686-w64-mingw32
 else
 	CFLAGS="-w -O2 $CFLAGS" CXXFLAGS="-w -O2 $CXXFLAGS" LDFLAGS="$LDFLAGS" ../OpenOCD/configure \
 		--prefix=$PREFIX \
 		HIDAPI_CFLAGS=-I${PREFIX}/include/hidapi \
-		HIDAPI_LIBS="-L${PREFIX}/lib ${HIDAPI_LDFLAGS}"
+		HIDAPI_LIBS="-L${PREFIX}/lib ${HIDAPI_LDFLAGS}" \
+        --disable-shared \
+        --build=i686-pc-linux-gnu --host=i686-w64-mingw32
 fi
 
 if [ -z "$MAKE_JOBS" ]; then
